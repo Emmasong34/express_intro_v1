@@ -27,3 +27,11 @@ app.listen(port, () => {
     console.log("up and running on port:", port);
 });
 
+app.get('/randomQuote', (req, res) => {
+    let randomNumber = getRandomInt(quotesData.length);
+    res.send(quotesData[randomNumber]);
+});
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
