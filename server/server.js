@@ -32,7 +32,7 @@ function getRandomInt(max) {
 
 
 
-  app.post('/quotes', (req, res) => {
+  app.post('/submitQuotes', (req, res) => {
       console.log('hello from post', req.body);
       quotesData.list.push(req.body);
         res.sendStatus(200);
