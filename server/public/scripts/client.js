@@ -4,7 +4,7 @@ $(document).ready(onReady);
 
 function onReady(){
     //perform GET request
-    getRandomQuote();
+    getQuotes();
     $('#submit').on('click', submitQuote);
 }
 
@@ -16,24 +16,26 @@ function submitQuote(){
     //send data to server via post request
     $.ajax({
         method: 'POST',
-        url: '/submitQuotes'
+        url: '/submitQuotes',
         data: {
             quote: quote,
             author: author
         }
     }).then(function(response){
         console.log('response', response);
+        getQuotes();
+        //getting our updated array, saying when ive posted go ahead and get those new quotes
     }).catch(function(error){
         //notifying the user of an error in post request
         alert(error);
     });
 }
 
-function getRandomQuote(){
+function getQuotes(){
     console.log('get the quote');
     $.ajax({
         method: 'GET',
-        url: '/randomQuote'
+        url: '/quotes'
     }).then(function(response){
         console.log('response', response);
         appendToDom(response);
@@ -41,10 +43,13 @@ function getRandomQuote(){
 }
 
 function appendToDom(dataToAppend){
+    $('#output').empty();
     //take response from server
     //append to div id="output"
-    $('#output').append(`
-        <p>${dataToAppend.quote}</p>
-        <i>${dataToAppend.author}</i>
-    `)
+    for(let i = 0; i < dataToAppend.length; i++){
+        $('#output').append(`
+            <p>${dataToAppend[i].quote}</p>
+            <i>${dataToAppend[i].author}</i>
+        `)
+    }
 }
