@@ -42,7 +42,7 @@ function getQuotes(){
     });
 }
 
-function appendToDom(dataToAppend){
+function appendToDom(response){
     $('#output').empty();
     //take response from server
     //append to div id="output"
